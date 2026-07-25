@@ -3,18 +3,26 @@ layout: default
 ---
 <article class="post">
   <header class="post-header">
-    <div class="post-meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}">
-        {{ page.date | date: "%B %-d, %Y" }}
-      </time>
-      {% if page.tags.size > 0 %}
-        <span class="meta-sep">·</span>
-        <div class="tag-list">
-          {% for tag in page.tags %}
-            <span class="tag">{{ tag }}</span>
-          {% endfor %}
-        </div>
-      {% endif %}
+    <div class="post-header-tools">
+      <div class="post-meta">
+        <time datetime="{{ page.date | date_to_xmlschema }}">
+          {{ page.date | date: "%B %-d, %Y" }}
+        </time>
+        {% if page.tags.size > 0 %}
+          <span class="meta-sep">·</span>
+          <div class="tag-list">
+            {% for tag in page.tags %}
+              <span class="tag">{{ tag }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      <button type="button" class="post-width-toggle" aria-pressed="false" aria-label="Use wide reading view" title="Use wide reading view">
+        <svg viewBox="0 0 24 24" aria-hidden="true" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M21 16v3a2 2 0 0 1-2 2h-3"></path>
+        </svg>
+        <span>Wide view</span>
+      </button>
     </div>
     <h1 class="post-title">{{ page.title }}</h1>
     {% if page.description %}

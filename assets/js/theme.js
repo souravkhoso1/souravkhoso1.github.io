@@ -24,12 +24,37 @@
     applyTheme(pref);
   }
 
+  function getPostWidth() {
+    return localStorage.getItem("post-width") || "default";
+  }
+
+  function applyPostWidth(width) {
+    var wide = width === "wide";
+    document.documentElement.setAttribute("data-post-width", wide ? "wide" : "default");
+    document.querySelectorAll(".post-width-toggle").forEach(function (button) {
+      button.setAttribute("aria-pressed", wide ? "true" : "false");
+      button.setAttribute("aria-label", wide ? "Use default reading view" : "Use wide reading view");
+      button.setAttribute("title", wide ? "Use default reading view" : "Use wide reading view");
+      button.querySelector("span").textContent = wide ? "Default view" : "Wide view";
+    });
+  }
+
+  function togglePostWidth() {
+    var width = getPostWidth() === "wide" ? "default" : "wide";
+    localStorage.setItem("post-width", width);
+    applyPostWidth(width);
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     applyTheme(getPreference());
     document.querySelectorAll(".theme-btn").forEach(function (btn) {
       btn.addEventListener("click", function () {
         setPreference(btn.getAttribute("data-theme-choice"));
       });
+    });
+    applyPostWidth(getPostWidth());
+    document.querySelectorAll(".post-width-toggle").forEach(function (button) {
+      button.addEventListener("click", togglePostWidth);
     });
   });
 

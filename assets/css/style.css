@@ -326,9 +326,22 @@ img { max-width: 100%; display: block; }
 }
 
 /* ── Post page ──────────────────────────────────────────── */
-.post { max-width: 680px; margin: 0 auto; }
+.post {
+  width: min(100% - 3rem, 680px);
+  margin: 0 auto;
+  transition: width 0.2s ease;
+}
+
+html[data-post-width="wide"] .post { width: min(100% - 3rem, 1120px); }
 
 .post-header { margin-bottom: 3rem; }
+
+.post-header-tools {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
 
 .post-meta {
   display: flex;
@@ -342,6 +355,35 @@ img { max-width: 100%; display: block; }
 }
 
 .meta-sep { color: var(--border); }
+
+.post-width-toggle {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-muted);
+  font: 500 0.75rem/1 var(--font);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.post-width-toggle:hover,
+.post-width-toggle[aria-pressed="true"] {
+  border-color: var(--accent-1);
+  background: color-mix(in srgb, var(--accent-1) 10%, var(--surface));
+  color: var(--text);
+}
+
+.post-width-toggle svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: none;
+  stroke: currentColor;
+}
 
 .post-title {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
@@ -582,4 +624,7 @@ img { max-width: 100%; display: block; }
   .site-nav { gap: 1.25rem; }
   .hero { padding: 2.5rem 0 2rem; }
   .post-card { padding: 1.25rem; }
+  .post { width: min(100% - 2rem, 680px); }
+  html[data-post-width="wide"] .post { width: min(100% - 2rem, 680px); }
+  .post-width-toggle span { display: none; }
 }
